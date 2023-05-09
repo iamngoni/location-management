@@ -3,7 +3,7 @@
 - REST API for  a small location management service
 
 ## Google Drive Recording Link
-[Click Here](https://drive.google.com/file/d/1Dgvgck7lpvbQUNxdaWEQ0nqRO-Cxej_C/view?usp=sharing)
+[Click Here](https://drive.google.com/file/d/10Q-jwoRTYQODGmyPqs2iwQF9JW5WlLi3/view?usp=sharing)
 
 ## Relevant Endpoints
 - [Create Shop Under Area](http://127.0.0.1:8000/api/1.0/areas/<area_id>/shops)
