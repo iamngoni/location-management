@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+    database:
+      image: postgres
+      container_name: econet-db
+      volumes:
+        - econet-pg:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_DB=econet
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=root
+      networks:
+        - econet-network
+
+    api:
+      build: .
+      container_name: econet
+      command: python manage.py runserver 0.0.0.0:8000
+      volumes:
+        - econet:/app
+      ports:
+        - "8000:8000"
+      depends_on:
+        - database
+      networks:
+        - econet-network
+
+networks:
+  econet-network:
+    driver: bridge
+
+volumes:
+  econet:
+  econet-pg:
