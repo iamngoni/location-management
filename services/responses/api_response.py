@@ -28,14 +28,13 @@ class ApiResponse(HttpResponse):
                         message = issues.get(list(issues.keys())[0])[0]
 
         response = {
-            # "request_id": req.id,
             "status": bool_status,
             "status_description": self.status_meaning(num_status).get("description"),
             "message": message,
             "data": data,
             "issues": issues,
             "version": 1.0,
-            "versioned_by": "ModestNerds, Co",
+            "with_love_by": "Ngonidzashe Mangudya",
         }
 
         response_data = json.dumps(response, cls=DjangoJSONEncoder, **{})
