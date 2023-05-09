@@ -18,8 +18,13 @@ class Area(SoftDeleteModel):
         ordering = ("name",)
         table_prefix = "area"
 
-    def create_shop(self, name, description):
-        shop = Shop.objects.create(area=self, name=name, description=description)
+    def create_shop(self, **kwargs):
+        shop = Shop.objects.create(
+            area=self,
+            name=kwargs.get("name").upper(),
+            description=kwargs.get("description"),
+            is_active=kwargs.get("is_active"),
+        )
         return shop
 
     def get_shops(self) -> QuerySet:

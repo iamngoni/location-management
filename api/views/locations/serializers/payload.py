@@ -43,11 +43,6 @@ class ShopPayloadSerializer(serializers.Serializer):
     area = serializers.CharField(max_length=255)
 
     def validate(self, attrs):
-        if not attrs["name"].isalnum():
-            raise serializers.ValidationError(
-                {"name": "Name must not contain special characters"}
-            )
-
         area = Area.get_item_by_id(attrs["area"])
         if not area:
             raise serializers.ValidationError({"area": "Area does not exist"})
