@@ -4,6 +4,7 @@
 #
 #  Created by Ngonidzashe Mangudya on 9/5/2023.
 #  Copyright (c) 2023 ModestNerds, Co
+
 from django.urls import path
 
 from api.views.locations.views import (
