@@ -17,10 +17,20 @@ class ShopsTest(APITestCase):
         @return:
         """
         url = reverse("shops")
-        data = {"area": self.area.id, "name": "Long Cheng Plaza"}
+        data = {"area": self.area.id, "name": "LongChengPlaza"}
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         shop = Shop.objects.first()
         # check if shop's name is uppercase
         self.assertEqual(shop.name, shop.name.upper())
+
+    def test_doesnt_allow_special_characters(self):
+        """
+        @description: Test shops doesn't allow special characters
+        @return:
+        """
+        url = reverse("shops")
+        data = {"area": self.area.id, "name": "Long Cheng Plaza"}
+        response = self.client.post(url, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

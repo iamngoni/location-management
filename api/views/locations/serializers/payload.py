@@ -52,6 +52,11 @@ class ShopPayloadSerializer(serializers.Serializer):
         if not area:
             raise serializers.ValidationError({"area": "Area does not exist"})
 
+        if not attrs.get("name").isalnum():
+            raise serializers.ValidationError(
+                {"name": "Name must not contain special characters"}
+            )
+
         shop_exists = Shop.objects.filter(name=attrs.get("name").upper()).exists()
         if shop_exists:
             raise serializers.ValidationError({"name": "Shop with name already exists"})
