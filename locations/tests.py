@@ -6,7 +6,7 @@ from locations.models import Area, Shop
 
 
 class AreasTest(APITestCase):
-    def creates_area(self):
+    def test_creates_area(self):
         url = reverse("areas")
         data = {"name": "Marondera"}
         response = self.client.post(url, data, format="json")
@@ -19,7 +19,7 @@ class ShopsTest(APITestCase):
         area.save()
         self.area = area
 
-    def creates_shop(self):
+    def test_creates_shop(self):
         url = reverse("shops")
         data = {"area": self.area.id, "name": "LongChengPlaza"}
         response = self.client.post(url, data, format="json")
