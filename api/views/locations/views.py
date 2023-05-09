@@ -14,6 +14,7 @@ from api.views.locations.serializers.model import (
 from api.views.locations.serializers.payload import (
     AreaPayloadSerializer,
     ShopPayloadSerializer,
+    AreaShopPayloadSerializer,
 )
 from locations.models import Area, Shop
 from services.helpers.api_pagination import ApiPagination
@@ -116,6 +117,7 @@ class AreaDetailsView(APIView):
 
 class AreaShopsView(APIView, ApiPagination):
     authentication_classes = ()
+    serializer_class = AreaShopPayloadSerializer
 
     def get(self, request, area_id):
         try:
@@ -137,6 +139,34 @@ class AreaShopsView(APIView, ApiPagination):
                     "shops": self.get_paginated_response(shops).data,
                 }
             )
+        except Exception as exc:
+            logger.error(exc)
+            return ApiResponse(num_status=500, bool_status=False)
+
+    def post(self, request, area_id):
+        try:
+            area = Area.get_item_by_id(area_id)
+            if area is None:
+                logger.error("Area not found")
+                return ApiResponse(
+                    num_status=404, bool_status=False, message="Area not found"
+                )
+
+            payload = self.serializer_class(data=request.data)
+            if payload.is_valid():
+                shop = area.create_shop(**payload.validated_data)
+                return ApiResponse(
+                    num_status=201,
+                    data={
+                        "area": AreaModelSerializer(area).data,
+                        "shop": ShopModelSerializer(shop).data,
+                    },
+                )
+            else:
+                logger.error(payload.errors)
+                return ApiResponse(
+                    num_status=400, bool_status=False, issues=payload.errors
+                )
         except Exception as exc:
             logger.error(exc)
             return ApiResponse(num_status=500, bool_status=False)

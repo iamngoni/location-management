@@ -65,3 +65,19 @@ class ShopPayloadSerializer(serializers.Serializer):
         instance.area = Area.get_item_by_id(validated_data.get("area", instance.area))
         instance.save()
         return instance
+
+
+class AreaShopPayloadSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=255)
+    description = serializers.CharField(
+        max_length=255,
+        required=False,
+    )
+    is_active = serializers.BooleanField(default=True)
+
+    def validate(self, attrs):
+        shop_exists = Shop.objects.filter(name=attrs.get("name").upper()).exists()
+        if shop_exists:
+            raise serializers.ValidationError({"name": "Shop with name already exists"})
+
+        return attrs
