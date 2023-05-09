@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_extensions",
     "api.apps.ApiConfig",
+    "locations.apps.LocationsConfig",
 ]
 
 MIDDLEWARE = [
