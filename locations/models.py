@@ -5,7 +5,7 @@ from econet.model import SoftDeleteModel
 
 
 class Area(SoftDeleteModel):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
@@ -34,7 +34,7 @@ class Shop(SoftDeleteModel):
         blank=False,
         null=False,
     )
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
