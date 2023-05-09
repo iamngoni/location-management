@@ -19,6 +19,18 @@ curl --location 'http://127.0.0.1:8000/api/1.0/areas/area_jPxrCuJsiXzGGM0m8WqrV3
 curl --location 'http://127.0.0.1:8000/api/1.0/areas/area_jPxrCuJsiXzGGM0m8WqrV3k5yRwIp0/shops'
 ```
 
+### Extra Endpoints
+- Create Area
+- List Areas
+- View Area By ID
+- Update Area
+- Create Shop
+- List Shops
+- View Shop By ID
+- Update Shop
+
+> Endpoints that return any list of items is paginated
+
 ## ER Diagram
 
 ![ER Diagram](./ER.png)
