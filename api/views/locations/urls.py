@@ -11,6 +11,7 @@ from api.views.locations.views import (
     AreaDetailsView,
     AreaShopsView,
     ShopsView,
+    ShopDetailsView,
 )
 
 urlpatterns = [
@@ -18,4 +19,5 @@ urlpatterns = [
     path("areas/<str:area_id>", AreaDetailsView.as_view(), name="area_details"),
     path("areas/<str:area_id>/shops", AreaShopsView.as_view(), name="area_shops"),
     path("shops", ShopsView.as_view(), name="shops"),
+    path("shops/<str:shop_id>", ShopDetailsView.as_view(), name="shop_details"),
 ]

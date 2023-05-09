@@ -191,3 +191,26 @@ class ShopsView(APIView, ApiPagination):
         except Exception as exc:
             logger.error(exc)
             return ApiResponse(num_status=500, bool_status=False)
+
+
+class ShopDetailsView(APIView):
+    authentication_classes = ()
+    serializer_class = ShopPayloadSerializer
+
+    def get(self, request, shop_id):
+        try:
+            shop = Shop.get_item_by_id(shop_id)
+            if shop is None:
+                logger.error("Shop not found")
+                return ApiResponse(
+                    num_status=404, bool_status=False, message="Shop not found"
+                )
+
+            return ApiResponse(
+                data={
+                    "shop": ShopModelSerializer(shop).data,
+                }
+            )
+        except Exception as exc:
+            logger.error(exc)
+            return ApiResponse(num_status=500, bool_status=False)
